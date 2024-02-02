@@ -9,12 +9,18 @@ from collections import Counter
 from torchtext import datasets
 from torch.utils import data
 
-our_training_path = "MELD_train_efr.csv"
-our_validation_path = "MELD_val_efr.csv"
+our_training_path = "../Data/MELD_test_efr_new.csv"
+our_testing_path = "../Data/MELD_test_efr_new.csv"
+# our_training_path = "../Data/MELD_train_efr_new.csv"
+# our_testing_path = "../Data/MELD_val_efr_new.csv"
+# our_training_path = "../Data/MaSaC_train_efr_new.csv"
+# our_testing_path = "../Data/MaSaC_val_efr_new.csv"
+# our_training_path = "../Data/MaSaC_test_erc_new.csv"
+# our_testing_path = "../Data/MaSaC_test_erc_new.csv"
 save_path = "../Pickles/"
 
 our_training_csv = pd.read_csv(our_training_path)
-our_testing_csv = pd.read_csv(our_validation_path)
+our_testing_csv = pd.read_csv(our_testing_path)
 
 
 ##################
@@ -84,10 +90,10 @@ with open('../Pickles/sent2emb.pickle','rb') as f:
     sent2emb = pickle.load(f)
 
 batch_size = 8
-seq_len = 15
+seq_len = 5
 seq2_len = seq_len
-emb_size = 768
-hidden_size = 768
+emb_size = 1024
+hidden_size = 1024
 batch_first = True
 
 matrix_len = len(idx2utt)+1
@@ -127,7 +133,10 @@ ch_id = 0
 for i in tqdm.tqdm(range(len(df_train))):
   if np.isnan(float(df_train["Dialogue_Id"][i])):
     sorted_dict = sorted(annot_tmp.items())
-    last_ch_id = sorted_dict[-1][0]
+    try:
+      last_ch_id = sorted_dict[-1][0]
+    except:
+      print("Error on",d_id)
     annot_vals = [item[1] for item in sorted_dict]
     
     annot[last_ch_id] = annot_vals
@@ -268,7 +277,7 @@ my_dataset_train = data.TensorDataset(D,X,Y1,Y2,Y3)
 
 ##################
 ### Reading testing data
-df_test = pd.read_csv(our_validation_path)
+df_test = pd.read_csv(our_testing_path)
 
 prev_idx = 0
 prev_d_id = 0
@@ -293,7 +302,10 @@ ch_id = 0
 for i in tqdm.tqdm(range(len(df_test))):
   if np.isnan(float(df_test["Dialogue_Id"][i])):
     sorted_dict = sorted(annot_tmp.items())
-    last_ch_id = sorted_dict[-1][0]
+    try:
+      last_ch_id = sorted_dict[-1][0]
+    except:
+      print("'Except' occured on",d_id)
     annot_vals = [item[1] for item in sorted_dict]
     
     annot[last_ch_id] = annot_vals

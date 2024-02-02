@@ -1,3 +1,5 @@
-Add the HingBERT Embeddings for Task 1
-Proper README
-Model on different cuda devices
+- Add the HingBERT Embeddings for Task 1
+- Proper README
+- Model on different cuda devices
+- Testing of MaSaC EFR Better Models - 2000 epochs one
+- Last 5 we have force predicted to be neutral
