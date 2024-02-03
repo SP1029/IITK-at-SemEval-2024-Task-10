@@ -2,4 +2,4 @@
 - Proper README
 - Model on different cuda devices
 - Testing of MaSaC EFR Better Models - 2000 epochs one
-- Last 5 we have force predicted to be neutral
+- Fixed: Last 5 we have force predicted to be neutral
