@@ -80,7 +80,7 @@ for speak in speaks:
 
 ##################
 # Making weight matrix
-with open('../Pickles/sent2emb.pickle', 'rb') as f:
+with open(save_path + 'sent2emb.pickle', 'rb') as f:
     sent2emb = pickle.load(f)
 
 batch_size = 8
