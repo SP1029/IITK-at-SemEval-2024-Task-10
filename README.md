@@ -8,47 +8,49 @@
 - Sub-Task 3 was EFR in English Conversations
 
 ## Repository Structure
-- Data
+- `Data/`
     - Consisits of the training, validation and test data for all the three subtasks
-- Dataloaders
+- `Dataloaders/`
     - Consists of the code to convert data into pickle files which the model uses
-- Inference
+- `Inference/`
     - Consists of codes utilised for inference phase of models
-- Pickles
+- `Pickles/`
     - Consists of the utterance embedding pickle files we utilised for our submission
-- Training
+- `Training/`
     - Consists of codes for training the models
-- Utility
-    - combine_predictions.ipynb
+- `Utility/`
+    - `combine_predictions.ipynb`
         - To combine the predictions for all three tasks into the competition excepected format
-    - hing_bert_embeddings.ipynb
+    - `hing_bert_embeddings.ipynb`
         - To compute utterance embeddings for Hindi-English Code Mixed Utterances
-        - Produces sent2emb.pickle
-    - erc_data_modify.ipynb
+        - Produces `sent2emb.pickle`
+    - `erc_data_modify.ipynb`
         - Splits the data into smaller conversations for the ERC Task
-    - hypothesis.ipynb
+    - `hypothesis.ipynb`
         - Transforms the predicitons of the model for the EFR task accoring to the hypothesis we have proposed in the paper
-    - json_to_csv.ipynb
+    - `json_to_csv.ipynb`
         - Prunes and modifies the data according to specifications and converts it to a form expected by dataloaders
-    - voyage_embeddings.ipynb
+    - `voyage_embeddings.ipynb`
         - To compute utterance embeddings for English Utterances
-        - Produces sent2emb.pickle
+        - Produces `sent2emb.pickle`
 
 ## ERC Model - Training and Inference
-- Split the data using erc_data_modify.ipynb
-- Convert it into csv format using json_to_csv.ipynb
+- Split the data using `erc_data_modify.ipynb`
+- Convert the new data into csv format using `json_to_csv.ipynb`
 - Compute the utterance embeddings
 - Generate pickle files following instructions given in Dataloaders
 - Train the model
-- Make predictions
+- For prediction, similar to training, generate the pickle files by setting both train and val paths with corresponding test paths
+- Run the inference scripts
 
 ## EFR Model - Training and Inference
-- Convert it into csv format using json_to_csv.ipynb
+- Convert it into csv format using `json_to_csv.ipynb`
 - Compute the utterance embeddings
 - Generate pickle files following instructions given in Dataloaders
 - Train the model
-- Make predictions
-- Apply the hypothesis using hypothesis.ipynb
+- For prediction, similar to training, generate the pickle files by setting both train and val paths with corresponding test paths
+- Run the inference scripts
+- Apply the hypothesis on the predictions using `hypothesis.ipynb`
 
 ## Our Models: 
 - The models trained and used for submission can be found below

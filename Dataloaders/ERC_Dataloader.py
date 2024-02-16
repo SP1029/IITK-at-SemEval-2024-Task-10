@@ -83,11 +83,9 @@ for speak in speaks:
 with open(save_path + 'sent2emb.pickle', 'rb') as f:
     sent2emb = pickle.load(f)
 
-batch_size = 8
 seq_len = 5
 seq2_len = seq_len
 emb_size = 1024
-batch_first = True
 
 matrix_len = len(idx2utt)+1
 weight_matrix = np.zeros((matrix_len, emb_size))

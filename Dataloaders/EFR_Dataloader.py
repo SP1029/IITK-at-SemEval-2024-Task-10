@@ -32,9 +32,7 @@ with open(pickle_path+"idx2speaker.pickle", "rb") as f:
 with open(pickle_path+"speaker2idx.pickle", "rb") as f:
     speaker2idx = pickle.load(f)
 
-batch_size = 8
 seq_len = 5
-batch_first = True
 
 ##################
 # Reading training data
