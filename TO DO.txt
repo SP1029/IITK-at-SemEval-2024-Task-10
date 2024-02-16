@@ -1,3 +1,0 @@
-- Add the HingBERT Embeddings for Task 1
-- Proper README
-- Model on different cuda devices

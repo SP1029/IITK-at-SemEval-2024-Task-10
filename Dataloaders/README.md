@@ -1,6 +1,12 @@
-First create a Folder with sent2emb.pickle present in it
-Ensure to Pickles-Folder-Path, Training-csv-path and Validation-csv-path
-For Task 1, only run ERC_Dataloader.py
-For Task 2 and 3, first run ERC_Dataloader.py. Then run EFR_Dataloader.py
-In ERC Dataloader ensure to "emos" list on line 61 when using for different tasks accordingly. It contains the list of possible emotions.
-Also update the size from 768 to appropriate value
+### Instructions
+- For the Task of ERC, only run the ERC_Dataloader.py to create the pickles
+- For the Task of EFR, run the ERC_Dataloader.py, followed by the EFR_Dataloader.py
+ 
+### ERC_Dataloader.py
+- Create a Folder named Pickles with sent2emb.pickle present in it
+- Update the variables training_path, testing_path and save_path to the training csv, testing csv and the pickles folder
+- Update the variables emos, seq_len and emb_size according to emotions in the data and the model parameters
+
+### EFR_Dataloader.py
+- Update the variables training_path, testing_path and save_path to the training csv, testing csv and the pickles folder
+- Update the variables emos and emb_size according to emotions in the data and the model parameters

@@ -10,12 +10,12 @@ from torchtext import datasets
 from torch.utils import data
 
 pickle_path = "../Pickles/"
-our_training_path = "MELD_train_efr.csv"
-our_validation_path = "MELD_val_efr.csv"
+training_path = "MELD_train_efr.csv"
+testing_path = "MELD_val_efr.csv"
 save_path = pickle_path
 
-our_training_csv = pd.read_csv(our_training_path)
-our_testing_csv = pd.read_csv(our_validation_path)
+training_csv = pd.read_csv(training_path)
+testing_csv = pd.read_csv(testing_path)
 
 with open(pickle_path+"idx2utt.pickle", "rb") as f:
     idx2utt = pickle.load(f)
@@ -34,9 +34,6 @@ with open(pickle_path+"speaker2idx.pickle", "rb") as f:
 
 batch_size = 8
 seq_len = 5
-seq2_len = seq_len
-emb_size = 768
-hidden_size = 768
 batch_first = True
 
 ##################
@@ -59,8 +56,8 @@ utt_len = {}
 
 d_id = 0
 c_id = 0
-for i in range(len(our_training_csv)):
-    if np.isnan(float(our_training_csv["Dialogue_Id"][i])):
+for i in range(len(training_csv)):
+    if np.isnan(float(training_csv["Dialogue_Id"][i])):
         if len(X_train_tmp) > seq_len:
             utt_len[d_id] = seq_len
         else:
@@ -115,10 +112,10 @@ for i in range(len(our_training_csv)):
             speaker_emotions[d_id] = {}
             speaker_indices[d_id] = {}
 
-        utt = utt2idx[nu.preprocess_text(our_training_csv["Utterance"][i])]
-        sp = speaker2idx[our_training_csv["Speaker"][i]]
-        flip = float(our_training_csv["Annotate(0/1)"][i])
-        emo = emo2idx[our_training_csv["Emotion_name"][i]]
+        utt = utt2idx[nu.preprocess_text(training_csv["Utterance"][i])]
+        sp = speaker2idx[training_csv["Speaker"][i]]
+        flip = float(training_csv["Annotate(0/1)"][i])
+        emo = emo2idx[training_csv["Emotion_name"][i]]
         if np.isnan(flip):
             flip = 0
 
@@ -167,8 +164,8 @@ utt_len_test = {}
 
 d_id = 0
 c_id = 0
-for i in range(len(our_testing_csv)):
-    if np.isnan(float(our_testing_csv["Dialogue_Id"][i])):
+for i in range(len(testing_csv)):
+    if np.isnan(float(testing_csv["Dialogue_Id"][i])):
         if len(X_test_tmp) > seq_len:
             utt_len_test[d_id] = seq_len
         else:
@@ -224,10 +221,10 @@ for i in range(len(our_testing_csv)):
             speaker_emotions_test[d_id] = {}
             speaker_indices_test[d_id] = {}
 
-        utt = utt2idx[nu.preprocess_text(our_testing_csv["Utterance"][i])]
-        sp = speaker2idx[our_testing_csv["Speaker"][i]]
-        flip = float(our_testing_csv["Annotate(0/1)"][i])
-        emo = emo2idx[our_testing_csv["Emotion_name"][i]]
+        utt = utt2idx[nu.preprocess_text(testing_csv["Utterance"][i])]
+        sp = speaker2idx[testing_csv["Speaker"][i]]
+        flip = float(testing_csv["Annotate(0/1)"][i])
+        emo = emo2idx[testing_csv["Emotion_name"][i]]
         if np.isnan(flip):
             flip = 0
 

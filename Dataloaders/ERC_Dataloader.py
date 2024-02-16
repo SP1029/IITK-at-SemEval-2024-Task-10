@@ -9,30 +9,30 @@ from collections import Counter
 from torchtext import datasets
 from torch.utils import data
 
-our_training_path = "MELD_train_efr.csv"
-our_testing_path = "MELD_val_efr.csv"
+training_path = "MELD_train_efr.csv"
+testing_path = "MELD_val_efr.csv"
 save_path = "Pickles/"
 
-our_training_csv = pd.read_csv(our_training_path)
-our_testing_csv = pd.read_csv(our_testing_path)
+training_csv = pd.read_csv(training_path)
+testing_csv = pd.read_csv(testing_path)
 
 
 ##################
 # Making utt2idx, emo2idx, speaker2idx, etc dicts
-our_utterances = our_training_csv["Utterance"]
-our_utterances_test = our_testing_csv["Utterance"]
+utterances = training_csv["Utterance"]
+utterances_test = testing_csv["Utterance"]
 
-all_utterances = our_training_csv["Utterance"]
-all_utterances = all_utterances._append(our_testing_csv["Utterance"])
+all_utterances = training_csv["Utterance"]
+all_utterances = all_utterances._append(testing_csv["Utterance"])
 
-all_emotions = our_training_csv["Emotion_name"]
-all_emotions = all_emotions._append(our_testing_csv["Emotion_name"])
+all_emotions = training_csv["Emotion_name"]
+all_emotions = all_emotions._append(testing_csv["Emotion_name"])
 
-all_speakers = our_training_csv["Speaker"]
-all_speakers = all_speakers._append(our_testing_csv["Speaker"])
+all_speakers = training_csv["Speaker"]
+all_speakers = all_speakers._append(testing_csv["Speaker"])
 
-all_annotations = our_training_csv["Annotate(0/1)"]
-all_annotations = all_annotations._append(our_testing_csv["Annotate(0/1)"])
+all_annotations = training_csv["Annotate(0/1)"]
+all_annotations = all_annotations._append(testing_csv["Annotate(0/1)"])
 
 f_utterances = ["<pad>"]
 f_emotions = []
@@ -87,11 +87,10 @@ batch_size = 8
 seq_len = 5
 seq2_len = seq_len
 emb_size = 1024
-hidden_size = 1024
 batch_first = True
 
 matrix_len = len(idx2utt)+1
-weight_matrix = np.zeros((matrix_len, hidden_size))
+weight_matrix = np.zeros((matrix_len, emb_size))
 
 for utt in idx2utt.values():
     pp_utt = nu.preprocess_text(utt)
@@ -102,7 +101,7 @@ weight_matrix = torch.Tensor(weight_matrix)
 
 ##################
 # Reading training data
-df_train = pd.read_csv(our_training_path)
+df_train = pd.read_csv(training_path)
 
 prev_idx = 0
 prev_d_id = 0
@@ -276,7 +275,7 @@ my_dataset_train = data.TensorDataset(D, X, Y1, Y2, Y3)
 
 ##################
 # Reading testing data
-df_test = pd.read_csv(our_testing_path)
+df_test = pd.read_csv(testing_path)
 
 prev_idx = 0
 prev_d_id = 0
